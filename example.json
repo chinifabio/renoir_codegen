@@ -1,0 +1,36 @@
+{
+    "jobs": [
+        {
+            "name": "job1",
+            "nodes": {
+                "source1": {
+                    "CsvSource": {
+                        "path": "data/input.csv",
+                        "fields": ["age", "name"],
+                        "types": ["usize", "String"]
+                    }
+                },
+                "filter1": {
+                    "Filter": {
+                        "condition": "row.age > 18"
+                    }
+                },
+                "map1": {
+                    "Map": {
+                        "function": "row.name.to_uppercase()"
+                    }
+                },
+                "collect1": {
+                    "CollectVec": {}
+                }
+            },
+            "edges": {
+                "source1": "filter1",
+                "filter1": "map1",
+                "map1": "collect1"
+            }
+        }
+    ],
+    "configuration": "default",
+    "async_mode": false
+}
