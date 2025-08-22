@@ -1,31 +1,39 @@
 {
-    "nodes": {
-        "source1": {
-            "KafkaSource": {
-                "brokers": "localhost:9093",
-                "topic": "test",
-                "group_id": "test",
-                "fields": ["age", "name"],
-                "types": ["usize", "String"]
-            }
+    "nodes": [
+        {
+            "id": "source1",
+            "type": "KafkaSource",
+            "x": 20,
+            "name": "Kafka Source",
+            "brokers": "localhost:9093",
+            "topic": "test",
+            "group_id": "test",
+            "fields": ["age", "name"],
+            "types": ["usize", "String"]
         },
-        "filter1": {
-            "Filter": {
-                "condition": "row.age > 18"
-            }
+        {
+            "id": "filter1",
+            "type": "Filter",
+            "x": 200,
+            "name": "Filter",
+            "condition": "row.age > 18"
         },
-        "map1": {
-            "Map": {
-                "function": "Row { age: row.age, name: row.name.to_uppercase() }"
-            }
+        {
+            "id": "map1",
+            "type": "Map",
+            "x": 400,
+            "name": "Map",
+            "function": "Row { age: row.age, name: row.name.to_uppercase() }"
         },
-        "collect1": {
-            "WriteKafka": {
-                "brokers": "localhost:9093",
-                "topic": "output"
-            }
+        {
+            "id": "collect1",
+            "type": "KafkaSink",
+            "x": 600,
+            "name": "Write to Kafka",
+            "brokers": "localhost:9093",
+            "topic": "output"
         }
-    },
+    ],
     "edges": {
         "source1": "filter1",
         "filter1": "map1",

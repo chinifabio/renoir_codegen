@@ -1,26 +1,27 @@
 {
-    "nodes": {
-        "source1": {
-            "CsvSource": {
-                "path": "resources/input.csv",
-                "fields": ["age", "name"],
-                "types": ["usize", "String"]
-            }
+    "nodes": [
+        {
+            "id": "source1",
+            "type": "CsvSource",
+            "path": "resources/input.csv",
+            "fields": ["age", "name"],
+            "types": ["usize", "String"]
         },
-        "filter1": {
-            "Filter": {
-                "condition": "row.age > 18"
-            }
+        {
+            "id": "filter1",
+            "type": "Filter",
+            "condition": "row.age > 18"
         },
-        "map1": {
-            "Map": {
-                "function": "row.name.to_uppercase()"
-            }
+        {
+            "id": "map1",
+            "type": "Map",
+            "function": "row.name.to_uppercase()"
         },
-        "collect1": {
-            "CollectVec": {}
+        {
+            "id": "collect1",
+            "type": "CollectVec"
         }
-    },
+    ],
     "edges": {
         "source1": "filter1",
         "filter1": "map1",
