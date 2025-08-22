@@ -1,41 +1,36 @@
 {
-    "jobs": [
-        {
-            "name": "job1",
-            "nodes": {
-                "source1": {
-                    "KafkaSource": {
-                        "brokers": "localhost:9093",
-                        "topic": "test",
-                        "group_id": "test",
-                        "fields": ["age", "name"],
-                        "types": ["usize", "String"]
-                    }
-                },
-                "filter1": {
-                    "Filter": {
-                        "condition": "row.age > 18"
-                    }
-                },
-                "map1": {
-                    "Map": {
-                        "function": "Row { age: row.age, name: row.name.to_uppercase() }"
-                    }
-                },
-                "collect1": {
-                    "WriteKafka": {
-                        "brokers": "localhost:9093",
-                        "topic": "output"
-                    }
-                }
-            },
-            "edges": {
-                "source1": "filter1",
-                "filter1": "map1",
-                "map1": "collect1"
+    "nodes": {
+        "source1": {
+            "KafkaSource": {
+                "brokers": "localhost:9093",
+                "topic": "test",
+                "group_id": "test",
+                "fields": ["age", "name"],
+                "types": ["usize", "String"]
+            }
+        },
+        "filter1": {
+            "Filter": {
+                "condition": "row.age > 18"
+            }
+        },
+        "map1": {
+            "Map": {
+                "function": "Row { age: row.age, name: row.name.to_uppercase() }"
+            }
+        },
+        "collect1": {
+            "WriteKafka": {
+                "brokers": "localhost:9093",
+                "topic": "output"
             }
         }
-    ],
+    },
+    "edges": {
+        "source1": "filter1",
+        "filter1": "map1",
+        "map1": "collect1"
+    },
     "configuration": "default",
     "async_mode": true
 }
